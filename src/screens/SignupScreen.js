@@ -21,7 +21,7 @@ const SignupScreen = props => {
 
   return (
     <View style={styles.container}>
-
+      
 
       <Image
         style={styles.loginLogoImg}
@@ -30,7 +30,7 @@ const SignupScreen = props => {
       />
 
       <View style={styles.v3}>
-        <Item style={styles.intxt}>
+        <Item style={[styles.intxt, phoneNumber.length < 10 ? styles.textinvalid : styles.textvalid]}>
           <Feather
             name="phone"
             size={18}
@@ -44,17 +44,31 @@ const SignupScreen = props => {
             placeholderTextColor="#BDBDBD"
             maxLength={10}
             keyboardType="numeric"
-            style={styles.fontSize16}
+            style={[styles.phoneInput] }
             value={phoneNumber}
             onChangeText={newValue => setPhone(newValue)}
           />
 
-          <FontAwesome
+
+          {
+            phoneNumber.length < 10 ? 
+            <FontAwesome
+            name="chevron-circle-right"
+            size={35}
+            color="#e2e2e2"
+            
+          />
+            : 
+            <FontAwesome
             name="chevron-circle-right"
             size={35}
             color="#00C7C7"
+            
             onPress={() => { props.navigation.navigate('OTP', { phoneNumber }) }}
           />
+          }
+
+          
 
         </Item>
         {
@@ -70,6 +84,7 @@ const SignupScreen = props => {
 
 
     </View>
+    
   );
 };
 
@@ -104,13 +119,16 @@ const styles = StyleSheet.create({
   },
   intxt: {
     backgroundColor: "white",
+    borderTopColor:"#00C7C7",
     marginLeft: 30,
     marginRight: 30,
     marginTop: 10,
     borderRadius: 5,
     fontSize: 12
   },
-  fontSize16: { fontSize: 16 },
+  phoneInput: {
+    fontSize: 16
+     },
   mobilePhone: {
     borderColor: "red",
     borderTopColor: "red",
@@ -129,7 +147,15 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     marginLeft: 10,
     marginTop: 8
-  }
+  },
+textvalid: {
+  borderWidth: 2,
+  borderColor: '#00C7C7',
+},
+textinvalid: {
+  borderColor: 'red',
+},
+
 
 });
 
