@@ -14,7 +14,7 @@ import { Context as AuthContext } from '../context/AuthContext';
 
 
 const SignupScreen = props => {
-  console.log(props);
+  // console.log(props);
   const { state, signup } = useContext(AuthContext);
   const [phoneNumber, setPhone] = useState('');
   const [password, setPassword] = useState('');
