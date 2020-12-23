@@ -2,13 +2,15 @@
 
 2. Move to the project Directory
 
- cd grayMatterTest
+   cd grayMatterTest
 
 3. Install packages
+    
     npm install
 
 4. Run project
-    npm start
+   
+   npm start
 
 5. Scan the QR Code using Expo Application 
 
