@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, Button } from 'react-native-elements';
-import { Content, Item, Input } from 'native-base';
+import { Content, Item, Input, View } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 
 class OtpScreen extends React.Component {
@@ -20,11 +20,17 @@ class OtpScreen extends React.Component {
             <Content>
                 <Text h2> Enter OTP Code</Text>
                 <Text h4> Pease verify your 4 digit OTP number </Text>
-                <Text h4>sent to {params.phoneNumber}</Text>
+                <Text h4 style={{marginRight:20}}>sent to {params.phoneNumber}</Text>
                 <Grid style={styles.gridPad}>
                     {this.renderDigits()}
                 </Grid>
+                <View style={styles.resendContainer}>
+                <Text style={styles.otpErr}>Didn't receive code?</Text>
+                <Text style={styles.resendLink}>Resend</Text>
+                </View>
+                
             </Content>
+            
         );
     }
 
@@ -58,10 +64,14 @@ class OtpScreen extends React.Component {
     }
 
     prevInput(key, index) {
-        if (key === 'Backspace' && index !== 0)
-            this.otpDigit[index - 1]._root.focus();
+        if (key === 'Backspace' && index !== 0){
+             this.otpDigit[index - 1]._root.focus();
+            
+        }
+        
     }
 
+    
 }
 const styles = StyleSheet.create({
     gridPad: {
@@ -73,7 +83,20 @@ const styles = StyleSheet.create({
     inputRadius: {
         textAlign: 'center'
 
+    },
+    resendContainer:{
+        marginLeft:20
+    },
+    otpErr:{
+        fontSize:20
+    },
+    resendLink:{
+        fontSize:20,
+        color:'#C76700',
+        position:"absolute",
+        marginLeft:180
     }
+
 });
 
 export default OtpScreen;
