@@ -1,21 +1,28 @@
 import React from 'react';
-import {  StyleSheet } from 'react-native';
-import { Text } from 'react-native-elements';
+import { StyleSheet } from 'react-native';
+import { Text, Button } from 'react-native-elements';
 import { Content, Item, Input } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
+
 class OtpScreen extends React.Component {
-    state={otp:[]};
+
+    constructor(props) {
+        super(props);
+      
+    }
+
+    state = { otp: [] };
     otpDigit = [];
     componentDidMount() {
         this.otpDigit[0]._root.focus();
     }
-    
+
     render() {
         return (
             <Content>
                 <Text h2> Enter OTP Code</Text>
                 <Text h4> Pease verify your 4 digit OTP number </Text>
-        <Text h4>sent to {this.props.phoneNumber}</Text>
+                <Text h4>sent to {this.props.phoneNumber}</Text>
                 <Grid style={styles.gridPad}>
                     {this.renderDigits()}
                 </Grid>
@@ -59,14 +66,14 @@ class OtpScreen extends React.Component {
 
 }
 const styles = StyleSheet.create({
-    gridPad: { 
+    gridPad: {
         padding: 60
     },
-    txtMargin: { 
+    txtMargin: {
         margin: 5
     },
-    inputRadius: { 
-        textAlign: 'center' 
+    inputRadius: {
+        textAlign: 'center'
 
     }
 });

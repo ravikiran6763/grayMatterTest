@@ -6,7 +6,7 @@ import {
   StyleSheet
 } from "react-native";
 import { Button, Item, Input, Icon } from "native-base";
-import { Feather, FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 // import { Text, Input,  } from 'react-native-elements';
 import Spacer from '../components/Spacer';
 import { Context as AuthContext } from '../context/AuthContext';
@@ -21,8 +21,6 @@ const SignupScreen = props => {
 
   return (
     <View style={styles.container}>
-      
-
       <Image
         style={styles.loginLogoImg}
         resizeMode="contain"
@@ -31,52 +29,74 @@ const SignupScreen = props => {
 
       <View style={styles.v3}>
         <Item style={[styles.intxt, phoneNumber.length < 10 ? styles.textinvalid : styles.textvalid]}>
-          <Feather
-            name="phone"
-            size={18}
-            color="black"
-            style={{
-              margin: 20
-            }}
-          />
+          {
+            phoneNumber.length < 10 ? 
+            <FontAwesome
+              name="phone"
+              size={18}
+              style={{
+                margin: 20,
+                color: "red"
+              }}
+            /> : 
+            <FontAwesome
+                name="phone"
+                size={18}
+                style={{
+                  margin: 20,
+                  color: "black"
+                }}
+              />
+          }
+
           <Input
             placeholder="Phone Number"
             placeholderTextColor="#BDBDBD"
             maxLength={10}
             keyboardType="numeric"
-            style={[styles.phoneInput] }
+            style={[styles.phoneInput]}
             value={phoneNumber}
             onChangeText={newValue => setPhone(newValue)}
           />
 
-
           {
-            phoneNumber.length < 10 ? 
-            <FontAwesome
-            name="chevron-circle-right"
-            size={35}
-            color="#e2e2e2"
-            
-          />
-            : 
-            <FontAwesome
-            name="chevron-circle-right"
-            size={35}
-            color="#00C7C7"
-            
-            onPress={() => { props.navigation.navigate('OTP', { phoneNumber }) }}
-          />
+            phoneNumber.length < 10 ?
+              <FontAwesome
+                name="chevron-circle-right"
+                size={35}
+                color="#e2e2e2"
+                style={
+                  { marginRight: 10 }
+                }
+              />
+              :
+              <FontAwesome
+                name="chevron-circle-right"
+                size={35}
+                color="#00C7C7"
+                style={{
+                  marginRight: 10
+                }}
+                onPress={() => { props.navigation.navigate('OTP', { phoneNumber }) }}
+              />
           }
-
-          
-
         </Item>
         {
-          phoneNumber.length < 10 ? <View style={styles.ErrContainer}><Text style={styles.phoneError}>Please Enter 10 digit number</Text></View> : null
+          phoneNumber.length < 10 ? 
+          <View style={styles.ErrContainer}>
+            <MaterialIcons 
+              name="error" 
+              size={18} 
+              color="red" 
+              />
+            <Text style={styles.phoneError}>
+            
+              Please Enter 10 digit number
+              </Text>
+          </View> : null
         }
         <View style={styles.textContainer}>
           <Text style={styles.otpText}> OTP WILL BE SENT TO THIS NUMBER</Text>
-
         </View>
 
       </View>
@@ -84,7 +104,7 @@ const SignupScreen = props => {
 
 
     </View>
-    
+
   );
 };
 
@@ -97,11 +117,14 @@ SignupScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
   phoneError: {
     color: "red",
-    alignItems: "flex-start"
+    alignItems: "flex-start",
+    position:"absolute",
+    marginTop:0,
+    marginLeft:23
   },
   ErrContainer: {
-    marginLeft:35,
-    fontSize:8
+    marginLeft: 35,
+    fontSize: 8
   },
   container: {
     flex: 1,
@@ -119,7 +142,7 @@ const styles = StyleSheet.create({
   },
   intxt: {
     backgroundColor: "white",
-    borderTopColor:"#00C7C7",
+    borderTopColor: "#00C7C7",
     marginLeft: 30,
     marginRight: 30,
     marginTop: 10,
@@ -128,7 +151,7 @@ const styles = StyleSheet.create({
   },
   phoneInput: {
     fontSize: 16
-     },
+  },
   mobilePhone: {
     borderColor: "red",
     borderTopColor: "red",
@@ -148,13 +171,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginTop: 8
   },
-textvalid: {
-  borderWidth: 2,
-  borderColor: '#00C7C7',
-},
-textinvalid: {
-  borderColor: 'red',
-},
+  textvalid: {
+    borderWidth: 2,
+    borderColor: '#00C7C7',
+  },
+  textinvalid: {
+    borderColor: 'red',
+  },
 
 
 });
