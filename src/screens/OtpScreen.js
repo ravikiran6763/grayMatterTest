@@ -6,11 +6,7 @@ import { Grid, Col } from 'react-native-easy-grid';
 
 class OtpScreen extends React.Component {
 
-    constructor(props) {
-        super(props);
-      
-    }
-
+    
     state = { otp: [] };
     otpDigit = [];
     componentDidMount() {
@@ -18,11 +14,13 @@ class OtpScreen extends React.Component {
     }
 
     render() {
+    const { params } = this.props.navigation.state;
+    console.log(params.phoneNumber);
         return (
             <Content>
                 <Text h2> Enter OTP Code</Text>
                 <Text h4> Pease verify your 4 digit OTP number </Text>
-                <Text h4>sent to {this.props.phoneNumber}</Text>
+                <Text h4>sent to {params.phoneNumber}</Text>
                 <Grid style={styles.gridPad}>
                     {this.renderDigits()}
                 </Grid>
