@@ -13,7 +13,9 @@ class OtpScreen extends React.Component {
     render() {
         return (
             <Content>
-                <Text h3> Enter OTP Code</Text>
+                <Text h2> Enter OTP Code</Text>
+                <Text h4> Pease verify your 4 digit OTP number </Text>
+        <Text h4>sent to {this.props.phoneNumber}</Text>
                 <Grid style={styles.gridPad}>
                     {this.renderDigits()}
                 </Grid>
