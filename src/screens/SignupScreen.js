@@ -79,6 +79,8 @@ const SignupScreen = props => {
                 }}
                 //  () => _sendOTP(phoneNumber)
                 onPress={ () => props.navigation.navigate('OTP', { phoneNumber})}
+                // onPress={ () => _sendOTP(num)}
+
               />
           }
         </Item>
@@ -109,13 +111,14 @@ const SignupScreen = props => {
   );
 };
 
-_sendOTP = async (ph) => {
-   const phoneno = ph;
-   const config = {
-     method: "post",
-     url: Constants.Baseurl.URL + Constants.Api.sendotp,
-     data: phoneno
-   };
+_sendOTP = async (props) => {
+  console.log(props)
+  //  const phoneno = ph;
+  //  const config = {
+  //    method: "post",
+  //    url: Constants.Baseurl.URL + Constants.Api.sendotp,
+  //    data: phoneno
+  //  };
   //  axios(config).then(async res => {
   //    const OTPVal = await res.data;
   //    console.log(OTPVal);

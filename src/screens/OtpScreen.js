@@ -23,7 +23,7 @@ class OtpScreen extends React.Component {
     render() {
         const { params } = this.props.navigation.state;
         console.log(params.phoneNumber);
-        // console.log(params.OTPVal);
+        console.log(params.OTPVal);
 
         return (
             <Content>
@@ -41,12 +41,11 @@ class OtpScreen extends React.Component {
                 <Spacer />
                 <Spacer />
                 <View style={styles.buttonContainer}>
-                    {
-
-                    }
+                   
                     <Button
                         style={styles.verifyButton}
                         mode="contained"
+                        
                     >
                         Verify OTP
                   </Button>
@@ -57,9 +56,8 @@ class OtpScreen extends React.Component {
         );
     }
 
-    _sendOTP = async () => {
+    _sendOTP = async ( ) => {
         // 
-        //  const { navigation } = this.props;
         const phoneno = params.phoneNumber;
         const config = {
             method: "post",
