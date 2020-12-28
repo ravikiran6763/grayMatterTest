@@ -5,10 +5,11 @@ import {
   Image,
   StyleSheet
 } from "react-native";
-import { Button, Item, Input, Icon } from "native-base";
+import { Button, Item, Input, Icon, Toast } from "native-base";
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
+import * as Constants from "../screens/AppConstants";
 // import { Text, Input,  } from 'react-native-elements';
-import Spacer from '../components/Spacer';
+import axios from "axios";
 import { Context as AuthContext } from '../context/AuthContext';
 
 
@@ -17,7 +18,6 @@ const SignupScreen = props => {
   // console.log(props);
   const { state, signup } = useContext(AuthContext);
   const [phoneNumber, setPhone] = useState('');
-  const [password, setPassword] = useState('');
 
   return (
     <View style={styles.container}>
@@ -77,7 +77,8 @@ const SignupScreen = props => {
                 style={{
                   marginRight: 10
                 }}
-                onPress={() => { props.navigation.navigate('OTP', { phoneNumber }) }}
+                //  () => _sendOTP(phoneNumber)
+                onPress={ () => props.navigation.navigate('OTP', { phoneNumber})}
               />
           }
         </Item>
@@ -107,6 +108,26 @@ const SignupScreen = props => {
 
   );
 };
+
+_sendOTP = async (ph) => {
+   const phoneno = ph;
+   const config = {
+     method: "post",
+     url: Constants.Baseurl.URL + Constants.Api.sendotp,
+     data: phoneno
+   };
+  //  axios(config).then(async res => {
+  //    const OTPVal = await res.data;
+  //    console.log(OTPVal);
+  //  this.props.navigation.navigate('OTP', { phoneNumber, OTPVal  });
+     
+  //  });
+   
+
+   
+ };
+
+
 
 SignupScreen.navigationOptions = () => {
   return {

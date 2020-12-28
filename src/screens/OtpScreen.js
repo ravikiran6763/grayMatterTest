@@ -1,13 +1,20 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Text, Button } from 'react-native-elements';
-import { Content, Item, Input, View } from 'native-base';
+import { Text } from 'react-native-elements';
+import { Content, Item, Input, View, Toast } from 'native-base';
 import { Grid, Col } from 'react-native-easy-grid';
 import Spacer from '../components/Spacer';
+import * as Constants from "../screens/AppConstants";
+import axios from "axios";
+import { Button } from "react-native-paper";
+
 class OtpScreen extends React.Component {
 
 
-    state = { otp: [] };
+    state = { 
+        otp: [],
+        disabled: false
+     };
     otpDigit = [];
     componentDidMount() {
         this.otpDigit[0]._root.focus();
@@ -16,6 +23,8 @@ class OtpScreen extends React.Component {
     render() {
         const { params } = this.props.navigation.state;
         console.log(params.phoneNumber);
+        // console.log(params.OTPVal);
+
         return (
             <Content>
                 <Text h2> Enter OTP Code</Text>
@@ -32,17 +41,38 @@ class OtpScreen extends React.Component {
                 <Spacer />
                 <Spacer />
                 <View style={styles.buttonContainer}>
-                <Button
-                    title="Verify OTP"
-                    style={styles.verifyButton}
-                />
+                    {
+
+                    }
+                    <Button
+                        style={styles.verifyButton}
+                        mode="contained"
+                    >
+                        Verify OTP
+                  </Button>
                 </View>
-                
 
             </Content>
 
         );
     }
+
+    _sendOTP = async () => {
+        // 
+        //  const { navigation } = this.props;
+        const phoneno = params.phoneNumber;
+        const config = {
+            method: "post",
+            url: Constants.Baseurl.URL + Constants.Api.sendotp,
+            data: phoneno
+        };
+        axios(config).then(async res => {
+            const data = await res.data;
+
+        });
+
+    };
+
 
     renderDigits() {
         const inputs = Array(4).fill(0);
@@ -51,10 +81,15 @@ class OtpScreen extends React.Component {
                 <Item regular>
                     <Input
                         style={[styles.inputRadius, { borderRadius: 10 }]}
+                        autoFocus={true}
                         keyboardType="numeric"
+                        placeholder="."
+                        placeholderTextColor="blue"
+                        maxLength={1}
                         onChangeText={v => this.nextInput(j, v)}
                         onKeyPress={e => this.prevInput(e.nativeEvent.key, j)}
                         ref={ref => this.otpDigit[j] = ref}
+                        
                     />
                 </Item>
             </Col>
@@ -63,6 +98,9 @@ class OtpScreen extends React.Component {
     }
 
     nextInput(index, value) {
+        console.log(index);
+        console.log(value);
+
         if (index < this.otpDigit.length - 1 && value) {
             this.otpDigit[index + 1]._root.focus();
         }
@@ -72,7 +110,8 @@ class OtpScreen extends React.Component {
         const otp = this.state.otp;
         otp[index] = value;
         this.setState({ otp });
-        // this.props.getOtp(otp.join(''));
+        // const joinOtp = this.props.getOtp(otp.join(''));
+        // console.log(joinOtp)
     }
 
     prevInput(key, index) {
@@ -87,13 +126,13 @@ class OtpScreen extends React.Component {
 }
 const styles = StyleSheet.create({
     gridPad: {
-        padding: 60
+        padding: 60,
     },
     txtMargin: {
-        margin: 5
+        margin: 5,
     },
     inputRadius: {
-        textAlign: 'center'
+        textAlign: 'center',
 
     },
     resendContainer: {
@@ -109,13 +148,15 @@ const styles = StyleSheet.create({
         marginLeft: 180
     },
     buttonContainer: {
-        color:"#C76700",
-        marginLeft:20,
-        width:"40%"
+        marginLeft: 20,
+        width: "60%"
     },
-    verifyButton:{
-        
-        color: '#C76700',
+    verifyButton: {
+        backgroundColor: "#C76700",
+        marginTop: 0,
+        width: "75%",
+        borderRadius: 3,
+        paddingVertical: 3
     }
 
 });
