@@ -111,24 +111,6 @@ const SignupScreen = props => {
   );
 };
 
-_sendOTP = async (props) => {
-  console.log(props)
-  //  const phoneno = ph;
-  //  const config = {
-  //    method: "post",
-  //    url: Constants.Baseurl.URL + Constants.Api.sendotp,
-  //    data: phoneno
-  //  };
-  //  axios(config).then(async res => {
-  //    const OTPVal = await res.data;
-  //    console.log(OTPVal);
-  //  this.props.navigation.navigate('OTP', { phoneNumber, OTPVal  });
-     
-  //  });
-   
-
-   
- };
 
 
 
